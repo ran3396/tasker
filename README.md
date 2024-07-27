@@ -189,7 +189,7 @@ celery -A celery_worker.celery worker --loglevel=info
           "string": "aaabbccccdd"
         }
       }
-      ``
+      ```
 
 
 - `GET /get-task-output`: Get the output of a task
