@@ -3,6 +3,7 @@ from unittest.mock import MagicMock
 
 
 def test_database_manager_execute(db_manager, mocker):
+    # Mock the connection and cursor objects
     mock_connection = MagicMock()
     mock_cursor = MagicMock()
     mock_cursor.fetchall.return_value = [{'id': 1, 'name': 'Test'}]

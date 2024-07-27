@@ -24,6 +24,7 @@ class DatabaseManager:
             connection.close()
 
     def execute(self, query: str, params: Optional[tuple] = None) -> Optional[List[Dict[str, Any]]]:
+        # Execute a query with optional parameters and return the results if any
         with self.get_connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(query, params)

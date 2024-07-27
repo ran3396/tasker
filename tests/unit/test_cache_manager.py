@@ -3,6 +3,7 @@ from unittest.mock import MagicMock
 
 
 def test_cache_manager_get(cache_manager, mocker):
+    # Mock the Redis connection and the get method
     mock_redis = MagicMock()
     mock_redis.get.return_value = b'test_value'
     mocker.patch.object(cache_manager, 'get_connection', return_value=MagicMock(__enter__=MagicMock(return_value=mock_redis)))
@@ -13,6 +14,7 @@ def test_cache_manager_get(cache_manager, mocker):
 
 
 def test_cache_manager_set(cache_manager, mocker):
+    # Mock the Redis connection and the set method
     mock_redis = MagicMock()
     mocker.patch.object(cache_manager, 'get_connection', return_value=MagicMock(__enter__=MagicMock(return_value=mock_redis)))
 

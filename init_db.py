@@ -5,6 +5,7 @@ app = create_app('development')
 
 
 def init_db():
+    # Initialize the tasks table in the database
     with app.app_context():
         db_manager = DatabaseManager(app.config)
         db_manager.execute("""

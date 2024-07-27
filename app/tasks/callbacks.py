@@ -16,6 +16,7 @@ class TaskCallbackManager:
         self.cache_manager = cache_manager
 
     def initialize_callbacks(self):
+        # Connect the task success and failure signals to the respective handlers
         task_success.connect(self.task_success_handler)
         task_failure.connect(self.task_failure_handler)
 

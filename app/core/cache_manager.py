@@ -21,10 +21,12 @@ class CacheManager:
             redis.close()
 
     def get(self, key: str) -> Optional[bytes]:
+        # Get the value from the cache based on the key
         with self.get_connection() as redis:
             return redis.get(key)
 
     def set(self, key: str, value: Any, expire: Optional[int] = None) -> None:
+        # Set the value in the cache based on the key with an optional expiration time
         with self.get_connection() as redis:
             if expire:
                 redis.setex(key, expire, value)

@@ -9,12 +9,14 @@ logger = logging.getLogger(__name__)
 
 @shared_task()
 def sum_two_numbers(a: int, b: int) -> int:
+    # This is a simple task that returns the sum of two numbers
     logger.info(f"Summing numbers: {a} + {b}")
     return a + b
 
 
 @shared_task()
 def query_chatgpt(prompt: str, api_key: str) -> str:
+    # This task queries the ChatGPT API with a given prompt and returns the response
     logger.info(f"Querying ChatGPT with prompt: {prompt}")
     try:
         response = requests.post(
@@ -31,6 +33,7 @@ def query_chatgpt(prompt: str, api_key: str) -> str:
 
 @shared_task()
 def find_longest_consecutive_letters(string: str) -> int:
+    # This task return the length of the longest consecutive letters in a string
     logger.info(f"Finding longest consecutive letters in string: {string}")
     max_len = 0
     current_len = 0

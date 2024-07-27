@@ -3,6 +3,7 @@ from unittest.mock import MagicMock
 
 
 def test_task_manager_create_task(task_manager, mocker):
+    # Mock the Task.create method and the Celery send_task method
     mock_task = MagicMock(uuid='test-uuid')
     mocker.patch('app.models.task.Task.create', return_value=mock_task)
     mock_celery = MagicMock()
@@ -14,6 +15,7 @@ def test_task_manager_create_task(task_manager, mocker):
 
 
 def test_task_manager_get_task_output(task_manager, mocker):
+    # Mock the CacheManager get method and the Task.get method
     mocker.patch.object(task_manager.cache_manager, 'get', return_value=None)
     mock_task = MagicMock(status='COMPLETED', output=3)
     mocker.patch('app.models.task.Task.get', return_value=mock_task)

@@ -21,6 +21,8 @@ class TaskManager:
         self.celery.conf.update(config)
 
     def create_task(self, task_name: str, task_parameters: Dict[str, Any]) -> str:
+        # Create a new task based on the task name and parameters provided, and send it to Celery for execution
+        # The task UUID returned can be used to query the status and output of the task
         if task_name == 'sum_two_numbers':
             celery_task = self.celery.send_task('app.tasks.task_functions.sum_two_numbers', 
                                                 args=[task_parameters['a'], task_parameters['b']])
@@ -41,6 +43,8 @@ class TaskManager:
         return task.uuid
 
     def get_task_output(self, task_uuid: str) -> (Dict[str, Any], ):
+        # Get the status and output of a task based on the task UUID
+        # First, try to get the output from the cache, if not found, get it from the database
         logger.info(f"Fetching output for task: {task_uuid}")
 
         # Try to get from cache first

@@ -4,6 +4,7 @@ import uuid
 
 
 def test_task_create(db_manager):
+    # Check if the task is created with the correct UUID, name, and parameters
     test_uuid = uuid.uuid4()
     task = Task.create(db_manager, str(test_uuid), 'test_task', {'param': 'value'})
     assert isinstance(uuid.UUID(task.uuid), uuid.UUID)
@@ -13,6 +14,7 @@ def test_task_create(db_manager):
 
 
 def test_task_get(db_manager, mocker):
+    # Check if the task is retrieved correctly from the database
     mock_execute = mocker.patch.object(db_manager, 'execute')
     mock_execute.return_value = [{
         'uuid': 'test-uuid',
