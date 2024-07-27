@@ -1,0 +1,8 @@
+Flask==3.0.3
+celery==5.2.3
+redis==5.0.7
+psycopg2-binary==2.9.3
+requests==2.32.3
+pytest~=8.3.2
+pytest-mock~=3.14.0
+python-dotenv==1.0.1

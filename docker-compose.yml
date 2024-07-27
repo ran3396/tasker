@@ -1,0 +1,56 @@
+# docker-compose.yml
+version: '3.3'
+
+services:
+  web:
+    build: .
+    command: gunicorn --bind 0.0.0.0:5000 run:app
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - DB_HOST=db
+      - DB_NAME=taskdb
+      - DB_USER=taskuser
+      - DB_PASSWORD=taskpassword
+      - REDIS_HOST=redis
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - db
+      - redis
+
+  celery_worker:
+    build: .
+    command: celery -A celery_worker.celery worker --loglevel=info
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=development
+      - DB_HOST=db
+      - DB_NAME=taskdb
+      - DB_USER=taskuser
+      - DB_PASSWORD=taskpassword
+      - REDIS_HOST=redis
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=taskdb
+      - POSTGRES_USER=taskuser
+      - POSTGRES_PASSWORD=taskpassword
+
+  redis:
+    image: redis:6
+
+volumes:
+  postgres_data:
